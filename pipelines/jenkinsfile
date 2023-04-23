@@ -1,5 +1,8 @@
 pipeline{
     agent {label 'docker'}
+    environment {
+        DOCKER_IMAGE_URL = '966979644360.dkr.ecr.ap-southeast-2.amazonaws.com/jenkins-learning'
+    }
     stages {
         stage('build-and-push') {
             steps {
@@ -7,10 +10,9 @@ pipeline{
             sh """
             ls -la
             tag=\$(git rev-parse --short HEAD)
-            docker_image_url=966979644360.dkr.ecr.ap-southeast-2.amazonaws.com/jenkins-learning
-            docker build -t ${docker_image_url}:${tag} .
-            docker push ${docker_image_url}:${tag}
-            docker image rm ${docker_image_url}:${tag}
+            docker build -t ${DOCKER_IMAGE_URL}:${tag} .
+            docker push ${DOCKER_IMAGE_URL}:${tag}
+            docker image rm ${DOCKER_IMAGE_URL}:${tag}
             """
             }
         }
