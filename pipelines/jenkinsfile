@@ -10,9 +10,9 @@ pipeline{
             sh """
             ls -la
             tag=\$(git rev-parse --short HEAD)
-            docker build -t ${DOCKER_IMAGE_URL}:${tag} .
-            docker push ${DOCKER_IMAGE_URL}:${tag}
-            docker image rm ${DOCKER_IMAGE_URL}:${tag}
+            docker build -t ${DOCKER_IMAGE_URL}:\${tag} .
+            docker push ${DOCKER_IMAGE_URL}:\${tag}
+            docker image rm ${DOCKER_IMAGE_URL}:\${tag}
             """
             }
         }
