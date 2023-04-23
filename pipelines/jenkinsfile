@@ -6,7 +6,7 @@ pipeline{
             // One or more steps need to be included within the steps block.
             sh """
             ls -la
-            tag=$(git rev-parse --short HEAD)
+            tag=\$(git rev-parse --short HEAD)
             docker_image_url=966979644360.dkr.ecr.ap-southeast-2.amazonaws.com/jenkins-learning
             docker build -t ${docker_image_url}:${tag} .
             docker push ${docker_image_url}:${tag}
