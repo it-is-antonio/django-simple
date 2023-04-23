@@ -1,11 +1,14 @@
 pipeline{
-    agent any
+    agent {label: 'docker'}
     stages {
         stage('build') {
             steps {
             // One or more steps need to be included within the steps block.
             sh """
-            echo "build step"
+            echo "FROM alpine:latest" > Dockerfile
+            docker build -t test .
+            docker image rm test
+            rm Dockerfile
             """
             }
         }
