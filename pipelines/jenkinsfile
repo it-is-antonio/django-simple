@@ -1,23 +1,20 @@
 pipeline{
     agent {label 'docker'}
     stages {
-        stage('build') {
+        stage('build-and-push') {
+            stages {
+                agent {label 'docker'}
+            }
             steps {
             // One or more steps need to be included within the steps block.
             sh """
             ls -la
-            echo "FROM alpine:latest" > Dockerfile
-            docker build -t test .
-            docker image rm test
-            rm Dockerfile
+            tag=$(git rev-parse --short HEAD)
+            docker_image_url=966979644360.dkr.ecr.ap-southeast-2.amazonaws.com/jenkins-learning
+            docker build -t ${docker_image_url}:${tag} .
+            docker push ${docker_image_url}:${tag}
+            docker image rm ${docker_image_url}:${tag}
             """
-            }
-        }
-
-        stage('publish') {
-            steps {
-            // One or more steps need to be included within the steps block.
-            echo "pushlish step"
             }
         }
 
