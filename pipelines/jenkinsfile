@@ -5,6 +5,7 @@ pipeline{
             steps {
             // One or more steps need to be included within the steps block.
             sh """
+            ls -la
             echo "FROM alpine:latest" > Dockerfile
             docker build -t test .
             docker image rm test
