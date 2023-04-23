@@ -1,0 +1,25 @@
+stages {
+  stage('build') {
+    steps {
+      // One or more steps need to be included within the steps block.
+      sh """
+      echo "build step"
+      """
+    }
+  }
+
+  stage('publish') {
+    steps {
+      // One or more steps need to be included within the steps block.
+      echo "pushlish step"
+    }
+  }
+
+  stage('test') {
+    steps {
+      // One or more steps need to be included within the steps block.
+      echo "test step"
+    }
+  }
+
+}
